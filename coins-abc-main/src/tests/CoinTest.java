@@ -19,7 +19,7 @@ public class CoinTest {
 	// Basically just make sure they don't blow up
 	// parameterless constructor
 	try {
-	    Coin c = new Coin();
+	    Coin c = new MockCoin();
 	}
 	catch (Exception e) {
 	    fail("Coin() constructor caused exception: "+e.getMessage());
@@ -27,7 +27,7 @@ public class CoinTest {
 
 	// value arg constructor
 	try {
-	    Coin c = new Coin(0.05);
+	    Coin c = new MockCoin(0.05);
 	}
 	catch (Exception e) {
 	    fail("Coin() constructor caused exception: "+e.getMessage());
@@ -35,7 +35,7 @@ public class CoinTest {
 
 	// value and year args constructor
 	try {
-	    Coin c = new Coin(0.10, 2020);
+	    Coin c = new MockCoin(0.10, 2020);
 	}
 	catch (Exception e) {
 	    fail("Coin() constructor caused exception: "+e.getMessage());
@@ -60,9 +60,11 @@ public class CoinTest {
 
     @Test
     public void testToString() {
-	Coin c = new Coin(0.50, 1999);
+	Coin c = new HalfDollar();
 	String expectedOutput =
-	    "[HalfDollar,0.50,1999,'IN GOD WE TRUST','E PLURIBUS UNUM'"
+	    "[HalfDollar,0.50,"
+		+ currYear
+		+ ",'IN GOD WE TRUST','E PLURIBUS UNUM'"
 	    + ",'J_Kennedy','Presidential_Seal','LIBERTY'"
 	    + ",'UNITED STATES OF AMERICA','HALF DOLLAR',ridges"
 	    + ",'Cupro-Nickel']";
@@ -73,11 +75,23 @@ public class CoinTest {
     // private helper methods
     //---------------------------------------------------------
     
+	class MockCoin extends Coin {
+		public MockCoin(double value, int year) {
+		   super(value, year);
+		}
+		public MockCoin(double value) {
+			super(value);
+		}
+		public MockCoin() {
+			super();
+		}
+	 }
+
     private boolean cmpDoubles(double a, double b) {
 	return Math.abs(a-b) < 0.00001;
     }
     private boolean testPenny() {
-	Coin c = new Coin(Coin.PENNY_VALUE);
+	Coin c = new Penny();
 	
 	if (! "Penny".equals(c.getFamiliarName())) return false;
 	if (! cmpDoubles(c.getValue(), Coin.PENNY_VALUE)) return false;
@@ -96,7 +110,7 @@ public class CoinTest {
 	return true;
     }
     private boolean testNickel() {
-	Coin c = new Coin(Coin.NICKEL_VALUE);
+	Coin c = new Nickel();
 	
 	if (! "Nickel".equals(c.getFamiliarName())) return false;
 	if (! cmpDoubles(c.getValue(), Coin.NICKEL_VALUE)) return false;
@@ -115,7 +129,7 @@ public class CoinTest {
 	return true;
     }
     private boolean testDime() {
-	Coin c = new Coin(Coin.DIME_VALUE);
+	Coin c = new Dime();
 	
 	if (! "Dime".equals(c.getFamiliarName())) return false;
 	if (! cmpDoubles(c.getValue(), Coin.DIME_VALUE)) return false;
@@ -134,7 +148,7 @@ public class CoinTest {
 	return true;
     }
     private boolean testQuarter() {
-	Coin c = new Coin(Coin.QUARTER_VALUE);
+	Coin c = new Quarter();
 	
 	if (! "Quarter".equals(c.getFamiliarName())) return false;
 	if (! cmpDoubles(c.getValue(), Coin.QUARTER_VALUE)) return false;
@@ -153,7 +167,7 @@ public class CoinTest {
 	return true;
     }
     private boolean testHalfDollar() {
-	Coin c = new Coin(Coin.HALFDOLLAR_VALUE);
+	Coin c = new HalfDollar();
 	
 	if (! "HalfDollar".equals(c.getFamiliarName())) return false;
 	if (! cmpDoubles(c.getValue(), Coin.HALFDOLLAR_VALUE)) return false;
@@ -172,7 +186,7 @@ public class CoinTest {
 	return true;
     }
     private boolean testDollar() {
-	Coin c = new Coin(Coin.DOLLAR_VALUE);
+	Coin c = new Dollar();
 	
 	if (! "Dollar".equals(c.getFamiliarName())) return false;
 	if (! cmpDoubles(c.getValue(), Coin.DOLLAR_VALUE)) return false;

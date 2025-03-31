@@ -1,25 +1,24 @@
 import java.util.Calendar;
-import java.text.DecimalFormat;
 
-public class Coin {
+public abstract class Coin {
     public static final double PENNY_VALUE = 0.01;
     public static final double NICKEL_VALUE = 0.05;
     public static final double DIME_VALUE = 0.10;
     public static final double QUARTER_VALUE = 0.25;
     public static final double HALFDOLLAR_VALUE = 0.50;
     public static final double DOLLAR_VALUE = 1.00;
-    private String familiarName;
-    private double value;
-    private String frontMotto;
-    private String backMotto;
-    private String frontLabel;
-    private String backLabel;
-    private String frontImage;
-    private String backImage;
-    private String valueDescription;
-    private boolean ridgedEdge;
-    private String metallurgy;
-    private int manufactureYear;
+    public String familiarName;
+    public double value;
+    public String frontMotto;
+    public String backMotto;
+    public String frontLabel;
+    public String backLabel;
+    public String frontImage;
+    public String backImage;
+    public String valueDescription;
+    public boolean ridgedEdge;
+    public String metallurgy;
+    public int manufactureYear;
     
     public Coin() {
 	this(0);
@@ -88,7 +87,7 @@ public class Coin {
 	backLabel = "UNITED STATES OF AMERICA";
 	
     }
-    private boolean cmpDoubles(double a, double b) {
+    public boolean cmpDoubles(double a, double b) {
 	return Math.abs(a-b) < 0.00001;
     }
 	
@@ -130,8 +129,7 @@ public class Coin {
     }
 
     public String toString() {
-	DecimalFormat df = new DecimalFormat("0.00");
-        String formattedValue = df.format(value);
+        String formattedValue = String.format("%.2f", value);
 	
 	return "[" + familiarName
 	    + "," + formattedValue
