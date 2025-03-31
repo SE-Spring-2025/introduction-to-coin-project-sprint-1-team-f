@@ -60,7 +60,6 @@ public class Demo {
     private static void runDemo() {
 	Coin c;
 	
-
 	while (true) {
 	    System.out.println();
 	    System.out.println();
