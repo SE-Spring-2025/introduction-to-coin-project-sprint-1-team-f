@@ -1,16 +1,22 @@
+import java.time.Year;
 public class HalfDollar extends Coin {
+    public HalfDollar(int year) {
+        super( 
+            "HalfDollar",
+            0.50, 
+            "IN GOD WE TRUST", 
+            year,
+            "E PLURIBUS UNUM", 
+            "LIBERTY", 
+            "UNITED STATES OF AMERICA", 
+            "J_Kennedy", 
+            "Presidential_Seal", 
+            "HALF DOLLAR", 
+            true, 
+            new CuproNickel()
+        );  
+    }
     public HalfDollar() {
-        super(0.50);
-        /*familiarName = "HalfDollar";
-        value = 0.50;
-        frontMotto = "IN GOD WE TRUST";
-        backMotto = "E PLURIBUS UNUM";
-        frontLabel = "LIBERTY";
-        backLabel = "UNITED STATES OF AMERICA";
-        frontImage = "J_Kennedy";
-        backImage = "Presidential_Seal";
-        valueDescription = "HALF DOLLAR";
-        ridgedEdge = true;
-        metallurgy = "Cupro_Nickel";*/    
+        this(Year.now().getValue());
     }
 }

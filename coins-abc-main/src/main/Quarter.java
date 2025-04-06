@@ -1,16 +1,22 @@
+import java.time.Year;
 public class Quarter extends Coin {
+    public Quarter(int year) {
+        super( 
+            "Quarter",
+            0.25, 
+            "IN GOD WE TRUST", 
+            year,
+            "E PLURIBUS UNUM", 
+            "LIBERTY", 
+            "UNITED STATES OF AMERICA", 
+            "G_Washington", 
+            "Eagle", 
+            "QUARTER DOLLAR", 
+            true, 
+            new CuproNickel()
+        );
+    }
     public Quarter() {
-        super(0.25);
-        /*familiarName = "Quarter";
-        value = 0.25;
-        frontMotto = "IN GOD WE TRUST";
-        backMotto = "E PLURIBUS UNUM";
-        frontLabel = "LIBERTY";
-        backLabel = "UNITED STATES OF AMERICA";
-        frontImage = "G_Washington";
-        backImage = "Eagle";
-        valueDescription = "QUARTER DOLLAR";
-        ridgedEdge = true;
-        metallurgy = "Cupro_Nickel";*/
+        this(Year.now().getValue());
     }
 }

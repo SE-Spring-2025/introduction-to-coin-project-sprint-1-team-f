@@ -1,16 +1,22 @@
+import java.time.Year;
 public class Dollar extends Coin {
+    public Dollar(int year) {
+        super( 
+            "Dollar",
+            1.00, 
+            "IN GOD WE TRUST", 
+            year,
+            "E PLURIBUS UNUM", 
+            "LIBERTY", 
+            "UNITED STATES OF AMERICA", 
+            "S_Anthony", 
+            "Moon_Eagle", 
+            "ONE DOLLAR", 
+            true, 
+            new CuproNickel()
+        );
+    }
     public Dollar() {
-        super(1.00);
-        /*familiarName = "Dollar";
-        value = 1.00;
-        frontMotto = "IN GOD WE TRUST";
-        backMotto = "E PLURIBUS UNUM";
-        frontLabel = "LIBERTY";
-        backLabel = "UNITED STATES OF AMERICA";
-        frontImage = "S_Anthony";
-        backImage = "Moon_Eagle";
-        valueDescription = "ONE DOLLAR";
-        ridgedEdge = true;
-        metallurgy = "Cupro-Nickel";*/
+        this(Year.now().getValue());
     }
 }
