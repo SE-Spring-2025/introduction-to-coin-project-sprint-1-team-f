@@ -19,4 +19,12 @@ public class Penny extends Coin {
     public Penny() {
         this(Year.now().getValue());
     }
+
+    public int getCount() {
+        return cc.getPennyCount();
+    }
+
+    public void increment() {
+        cc.incrementPenny();
+    }
 }

@@ -1,17 +1,21 @@
 public abstract class Coin implements Metallurgy {
-	public String commonName;
-	public double value;
-	public String frontMotto;
-	public int manufactureYear;
-	public String backMotto;
-	public String frontLabel;
-	public String backLabel;
-	public String frontImage;
-	public String backImage;
-	public String valueDescription;
-	public boolean ridgedEdge;
-	public Metallurgy smelter;
-	public String metallurgy;
+
+	private String commonName;
+	private double value;
+	private String frontMotto;
+	private int manufactureYear;
+	private String backMotto;
+	private String frontLabel;
+	private String backLabel;
+	private String frontImage;
+	private String backImage;
+	private String valueDescription;
+	private boolean ridgedEdge;
+	private Metallurgy smelter;
+	private String metallurgy;
+	protected static CoinCounter cc = new CoinCounter();
+	public abstract int getCount();
+	public abstract void increment();
 
 	public Coin(
 			String commonName, 
@@ -70,7 +74,7 @@ public abstract class Coin implements Metallurgy {
 		metallurgy = smelter.smelt();
 		return metallurgy;
 	}
-
+	
 	// GETTERS
 	public String getCommonName() {
 		return commonName;
@@ -169,4 +173,5 @@ public abstract class Coin implements Metallurgy {
 		this.smelter = smelter;
 		this.smelt();
 	}
+	
 }

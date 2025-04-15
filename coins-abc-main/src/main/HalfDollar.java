@@ -19,4 +19,12 @@ public class HalfDollar extends Coin {
     public HalfDollar() {
         this(Year.now().getValue());
     }
+
+    public int getCount() {
+        return cc.getHalfDollarCount();
+    }
+
+    public void increment() {
+        cc.incrementHalfDollar();
+    }
 }

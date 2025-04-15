@@ -19,4 +19,12 @@ public class Dollar extends Coin {
     public Dollar() {
         this(Year.now().getValue());
     }
+
+    public int getCount() {
+        return cc.getDollarCount();
+    }
+
+    public void increment() {
+        cc.incrementDollar();
+    }
 }

@@ -19,4 +19,12 @@ public class Dime extends Coin {
     public Dime() {
         this(Year.now().getValue());
     }
+
+    public int getCount() {
+        return cc.getDimeCount();
+    }
+
+    public void increment() {
+        cc.incrementDime();
+    }
 }

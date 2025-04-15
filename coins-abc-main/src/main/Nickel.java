@@ -19,4 +19,12 @@ public class Nickel extends Coin {
     public Nickel() {
         this(Year.now().getValue());
     }
+
+    public int getCount() {
+        return cc.getNickelCount();
+    }
+
+    public void increment() {
+        cc.incrementNickel();
+    }
 }

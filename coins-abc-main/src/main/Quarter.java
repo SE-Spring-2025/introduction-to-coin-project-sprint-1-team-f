@@ -19,4 +19,12 @@ public class Quarter extends Coin {
     public Quarter() {
         this(Year.now().getValue());
     }
+
+    public int getCount() {
+        return cc.getQuarterCount();
+    }
+
+    public void increment() {
+        cc.incrementQuarter();
+    }
 }
