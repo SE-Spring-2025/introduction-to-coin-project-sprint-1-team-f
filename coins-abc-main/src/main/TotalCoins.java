@@ -9,50 +9,78 @@ import java.awt.event.ActionListener;
 public class TotalCoins extends JFrame implements Runnable, CoinObserver {
 
     private CoinCounter cc;
-    private JPanel pennyPanel;
-    private JLabel pennyLabel;
-    private JButton pennyButton;
-    private JPanel nickelPanel;
-    private JLabel nickelLabel;
-    private JButton nickelButton;
-    private JPanel dimePanel;
-    private JLabel dimeLabel;
-    private JButton dimeButton;
-    private JPanel quarterPanel;
-    private JLabel quarterLabel;
-    private JButton quarterButton;
-    private JPanel halfDollarPanel;
-    private JLabel halfDollarLabel;
-    private JButton halfDollarButton;
-    private JPanel dollarPanel;
-    private JLabel dollarLabel;
-    private JButton dollarButton;
 
-    private void initializePanel(JPanel panel, JLabel label, JButton button, Coin coin) {
+    private Penny penny = new Penny();
+    private JPanel pennyPanel;
+    private JLabel pennyLabel = new JLabel();
+    private JButton pennyButton;
+    private JButton pennyWindow;
+
+    private Nickel nickel = new Nickel();
+    private JPanel nickelPanel;
+    private JLabel nickelLabel = new JLabel();
+    private JButton nickelButton;
+    private JButton nickelWindow;
+
+    private Dime dime = new Dime();
+    private JPanel dimePanel;
+    private JLabel dimeLabel = new JLabel();
+    private JButton dimeButton;
+    private JButton dimeWindow;
+
+    private Quarter quarter = new Quarter();
+    private JPanel quarterPanel;
+    private JLabel quarterLabel = new JLabel();
+    private JButton quarterButton;
+    private JButton quarterWindow;
+
+    private HalfDollar halfDollar = new HalfDollar();
+    private JPanel halfDollarPanel;
+    private JLabel halfDollarLabel = new JLabel();
+    private JButton halfDollarButton;
+    private JButton halfDollarWindow;
+
+    private Dollar dollar = new Dollar();
+    private JPanel dollarPanel;
+    private JLabel dollarLabel = new JLabel();
+    private JButton dollarButton;
+    private JButton dollarWindow;
+
+    private void initializePanel(JPanel panel, JLabel label, JButton button, JButton window, Coin coin) {
+        coin.cc.addObserver(this);
         panel = new JPanel();
-        label = new JLabel(coin.getCommonName() + ": "
+        label.setText(coin.getCommonName() + ": "
             + coin.getCount());
         button = new JButton("Add " + coin.getCommonName());
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 coin.increment();
-                update();
+            }
+        });
+        window = new JButton("<html>Create " + coin.getCommonName() + "<br>Counter Window</html>");
+        window.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new CoinWindow(coin);
             }
         });
         panel.add(label);
         panel.add(button);
+        panel.add(window);
         add(panel);
     }
 
-    public TotalCoins(CoinCounter cc) {
-        this.cc = cc;
+    public TotalCoins() {
+        this.cc = new CoinCounter();
+        this.cc.addObserver(this);
     }
 
     public void update() {
-        setVisible(false);
-        getContentPane().removeAll();
-        createPanels();
-        visualize();
+        pennyLabel.setText(penny.getCommonName() + ": " + penny.getCount());
+        nickelLabel.setText(nickel.getCommonName() + ": " + nickel.getCount());
+        dimeLabel.setText(dime.getCommonName() + ": " + dime.getCount());
+        quarterLabel.setText(quarter.getCommonName() + ": " + quarter.getCount());
+        halfDollarLabel.setText(halfDollar.getCommonName() + ": " + halfDollar.getCount());
+        dollarLabel.setText(dollar.getCommonName() + ": " + dollar.getCount());
     }
 
     public void run() {
@@ -64,12 +92,12 @@ public class TotalCoins extends JFrame implements Runnable, CoinObserver {
     }
 
     private void createPanels() {
-        initializePanel(pennyPanel, pennyLabel, pennyButton, new Penny());
-        initializePanel(nickelPanel, nickelLabel, nickelButton, new Nickel());
-        initializePanel(dimePanel, dimeLabel, dimeButton, new Dime());
-        initializePanel(quarterPanel, quarterLabel, quarterButton, new Quarter());
-        initializePanel(halfDollarPanel, halfDollarLabel, halfDollarButton, new HalfDollar());
-        initializePanel(dollarPanel, dollarLabel, dollarButton, new Dollar());
+        initializePanel(pennyPanel, pennyLabel, pennyButton, pennyWindow, penny);
+        initializePanel(nickelPanel, nickelLabel, nickelButton, nickelWindow, nickel);
+        initializePanel(dimePanel, dimeLabel, dimeButton, dimeWindow, dime);
+        initializePanel(quarterPanel, quarterLabel, quarterButton, quarterWindow, quarter);
+        initializePanel(halfDollarPanel, halfDollarLabel, halfDollarButton, halfDollarWindow, halfDollar);
+        initializePanel(dollarPanel, dollarLabel, dollarButton, dollarWindow, dollar);
     }
 
     private void visualize() {

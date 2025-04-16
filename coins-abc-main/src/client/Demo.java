@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class Demo {
@@ -19,9 +18,9 @@ public class Demo {
 		System.out.println("Have a wonderful day!");
 		System.out.println();
 		*/
-		TotalCoins demo = new TotalCoins(new CoinCounter());
-		Thread thread = new Thread(demo);
-		thread.start();
+		TotalCoins demo = new TotalCoins();
+		Thread totalCoins = new Thread(demo);
+		totalCoins.start();
 	}
 
 	private static void fixedDemo() {

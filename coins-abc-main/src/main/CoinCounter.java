@@ -12,26 +12,32 @@ public class CoinCounter implements CoinSubject {
 
     public void incrementPenny() {
         pennyCount++;
+        notifyObservers();
     }
 
     public void incrementNickel() {
         nickelCount++;
+        notifyObservers();
     }
 
     public void incrementDime() {
         dimeCount++;
+        notifyObservers();
     }
 
     public void incrementQuarter() {
         quarterCount++;
+        notifyObservers();
     }
 
     public void incrementHalfDollar() {
         halfDollarCount++;
+        notifyObservers();
     }
 
     public void incrementDollar() {
         dollarCount++;
+        notifyObservers();
     }
 
     //GETTERS
@@ -86,10 +92,12 @@ public class CoinCounter implements CoinSubject {
 
     //Subject Methods
     public void addObserver(CoinObserver co) {
+        if (!observers.contains(co))
         observers.add(co);
     }
 
     public void removeObserver(CoinObserver co) {
+        if (!observers.contains(co))
         observers.remove(co);
     }
 
