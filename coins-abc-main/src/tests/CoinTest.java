@@ -19,7 +19,7 @@ public class CoinTest {
 		Coin c;
 		//Coin
 		try {
-			c = new MockCoin(0.10, 2020);
+			c = new MockCoin(null, -1.0, new Copper());
 		}
 		catch (Exception e) {
 			fail("Coin() constructor caused exception: "+e.getMessage());
@@ -32,12 +32,6 @@ public class CoinTest {
 		catch (Exception e) {
 			fail("Penny() constructor caused exception: "+e.getMessage());
 		}
-		try {
-			c = new Penny(currYear);
-		}
-		catch (Exception e) {
-			fail("Penny(year) constructor caused exception: "+e.getMessage());
-		}
 
 		//Nickel
 		try {
@@ -45,12 +39,6 @@ public class CoinTest {
 		}
 		catch (Exception e) {
 			fail("Nickel() constructor caused exception: "+e.getMessage());
-		}
-		try {
-			c = new Nickel(currYear);
-		}
-		catch (Exception e) {
-			fail("Nickel(year) constructor caused exception: "+e.getMessage());
 		}
 
 		//Dime
@@ -60,12 +48,6 @@ public class CoinTest {
 		catch (Exception e) {
 			fail("Dime() constructor caused exception: "+e.getMessage());
 		}
-		try {
-			c = new Dime(currYear);
-		}
-		catch (Exception e) {
-			fail("Dime(year) constructor caused exception: "+e.getMessage());
-		}
 
 		//Quarter
 		try {
@@ -73,12 +55,6 @@ public class CoinTest {
 		}
 		catch (Exception e) {
 			fail("Quarter() constructor caused exception: "+e.getMessage());
-		}
-		try {
-			c = new Quarter(currYear);
-		}
-		catch (Exception e) {
-			fail("Quarter(year) constructor caused exception: "+e.getMessage());
 		}
 
 		//HalfDollar
@@ -88,12 +64,6 @@ public class CoinTest {
 		catch (Exception e) {
 			fail("HalfDollar() constructor caused exception: "+e.getMessage());
 		}
-		try {
-			c = new HalfDollar(currYear);
-		}
-		catch (Exception e) {
-			fail("HalfDollar(year) constructor caused exception: "+e.getMessage());
-		}
 
 		//Dollar
 		try {
@@ -101,12 +71,6 @@ public class CoinTest {
 		}
 		catch (Exception e) {
 			fail("Dollar() constructor caused exception: "+e.getMessage());
-		}
-		try {
-			c = new Dollar(currYear);
-		}
-		catch (Exception e) {
-			fail("Dollar(year) constructor caused exception: "+e.getMessage());
 		}
 		assertTrue(true);
     }
@@ -132,6 +96,7 @@ public class CoinTest {
 
 		//Checking Penny
 		c = new Penny();
+		c = c.manufacture(c);
 		expectedOutput =
 			"[Penny,0.01,"
 			+ currYear
@@ -140,11 +105,10 @@ public class CoinTest {
 			+ ",'UNITED STATES OF AMERICA','ONE CENT',smooth"
 			+ ",'Copper']";
 		assertEquals(expectedOutput, c.toString());
-		c = new Penny(currYear);
-		assertEquals(expectedOutput, c.toString());
 
 		//Checking Nickel
 		c = new Nickel();
+		c = c.manufacture(c);
 		expectedOutput =
 			"[Nickel,0.05,"
 			+ currYear
@@ -153,11 +117,10 @@ public class CoinTest {
 			+ ",'UNITED STATES OF AMERICA','FIVE CENTS',smooth"
 			+ ",'Cupro-Nickel']";
 		assertEquals(expectedOutput, c.toString());
-		c = new Nickel(currYear);
-		assertEquals(expectedOutput, c.toString());
 
 		//Checking Dime
 		c = new Dime();
+		c = c.manufacture(c);
 		expectedOutput =
 			"[Dime,0.10,"
 			+ currYear
@@ -166,11 +129,10 @@ public class CoinTest {
 			+ ",'UNITED STATES OF AMERICA','ONE DIME',ridges"
 			+ ",'Cupro-Nickel']";
 		assertEquals(expectedOutput, c.toString());
-		c = new Dime(currYear);
-		assertEquals(expectedOutput, c.toString());
 
 		//Checking Quarter
 		c = new Quarter();
+		c = c.manufacture(c);
 		expectedOutput =
 			"[Quarter,0.25,"
 			+ currYear
@@ -179,11 +141,10 @@ public class CoinTest {
 			+ ",'UNITED STATES OF AMERICA','QUARTER DOLLAR',ridges"
 			+ ",'Cupro-Nickel']";
 		assertEquals(expectedOutput, c.toString());
-		c = new Quarter(currYear);
-		assertEquals(expectedOutput, c.toString());
 
 		//Checking Half Dollar
 		c = new HalfDollar();
+		c = c.manufacture(c);
 		expectedOutput =
 			"[HalfDollar,0.50,"
 			+ currYear
@@ -192,11 +153,10 @@ public class CoinTest {
 			+ ",'UNITED STATES OF AMERICA','HALF DOLLAR',ridges"
 			+ ",'Cupro-Nickel']";
 		assertEquals(expectedOutput, c.toString());
-		c = new HalfDollar(currYear);
-		assertEquals(expectedOutput, c.toString());
 
 		//Checking Dollar
 		c = new Dollar();
+		c = c.manufacture(c);
 		expectedOutput =
 			"[Dollar,1.00,"
 			+ currYear
@@ -205,67 +165,77 @@ public class CoinTest {
 			+ ",'UNITED STATES OF AMERICA','ONE DOLLAR',ridges"
 			+ ",'Cupro-Nickel']";
 		assertEquals(expectedOutput, c.toString());
-		c = new Dollar(currYear);
-		assertEquals(expectedOutput, c.toString());
     }
 
 	@Test
-	public void testSmelt() {
+	public void testManufacture() {
 		//Checking Penny
 		Coin c = new Penny();
+		c = c.manufacture(c);
 		String expectedOutput = "Copper";
 		assertEquals(expectedOutput, c.getMetallurgy());
 
 		//Checking Dime
 		c = new Dime();
+		c = c.manufacture(c);
 		expectedOutput = "Cupro-Nickel";
 		assertEquals(expectedOutput, c.getMetallurgy());
 
 		//Checking Nickel
 		c = new Nickel();
+		c = c.manufacture(c);
 		assertEquals(expectedOutput, c.getMetallurgy());
 
 		//Checking Quarter
 		c = new Quarter();
+		c = c.manufacture(c);
 		assertEquals(expectedOutput, c.getMetallurgy());
 
 		//Checking Half Dollar
 		c = new HalfDollar();
+		c = c.manufacture(c);
 		assertEquals(expectedOutput, c.getMetallurgy());
 
 		//Checking Dollar
 		c = new Dollar();
+		c = c.manufacture(c);
 		assertEquals(expectedOutput, c.getMetallurgy());
 	}
 
     //---------------------------------------------------------
     // private helper methods
     //---------------------------------------------------------
-    
+
 	class MockCoin extends Coin {
-		public MockCoin(double value, int year) {
-			super( 
-				"Test",
-				value,
-				"Test", 
-				year,
-				"Test", 
-				"Test", 
-				"Test", 
-				"Test", 
-				"Test", 
-				"Test", 
-				false, 
-				new Copper()
-			);
+		public MockCoin(String commonValue, double value, Metallurgy smelter) {
+			super(commonValue, value, smelter);
 		}
-	 }
+
+		public int getCount() {
+			return -1;
+		}
+		
+		public void increment() {}
+
+		protected Coin ridge(Coin c) {
+			return c;
+		}
+
+		protected Coin imprintFront(Coin c) {
+			return c;
+		}
+
+		protected Coin imprintBack(Coin c) {
+			return c;
+		}
+	}
 
     private boolean cmpDoubles(double a, double b) {
 	return Math.abs(a-b) < 0.00001;
     }
     private boolean testPenny() {
 	Coin c = new Penny();
+	c = c.manufacture(c);
 	
 	if (! "Penny".equals(c.getCommonName())) return false;
 	if (! cmpDoubles(c.getValue(), 0.01)) return false;
@@ -285,6 +255,7 @@ public class CoinTest {
     }
     private boolean testNickel() {
 	Coin c = new Nickel();
+	c = c.manufacture(c);
 	
 	if (! "Nickel".equals(c.getCommonName())) return false;
 	if (! cmpDoubles(c.getValue(), 0.05)) return false;
@@ -304,6 +275,7 @@ public class CoinTest {
     }
     private boolean testDime() {
 	Coin c = new Dime();
+	c = c.manufacture(c);
 	
 	if (! "Dime".equals(c.getCommonName())) return false;
 	if (! cmpDoubles(c.getValue(), 0.10)) return false;
@@ -323,6 +295,7 @@ public class CoinTest {
     }
     private boolean testQuarter() {
 	Coin c = new Quarter();
+	c = c.manufacture(c);
 	
 	if (! "Quarter".equals(c.getCommonName())) return false;
 	if (! cmpDoubles(c.getValue(), 0.25)) return false;
@@ -342,6 +315,7 @@ public class CoinTest {
     }
     private boolean testHalfDollar() {
 	Coin c = new HalfDollar();
+	c = c.manufacture(c);
 	
 	if (! "HalfDollar".equals(c.getCommonName())) return false;
 	if (! cmpDoubles(c.getValue(), 0.50)) return false;
@@ -361,6 +335,7 @@ public class CoinTest {
     }
     private boolean testDollar() {
 	Coin c = new Dollar();
+	c = c.manufacture(c);
 	
 	if (! "Dollar".equals(c.getCommonName())) return false;
 	if (! cmpDoubles(c.getValue(), 1.00)) return false;

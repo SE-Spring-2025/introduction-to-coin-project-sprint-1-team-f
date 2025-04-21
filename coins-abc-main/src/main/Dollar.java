@@ -1,23 +1,11 @@
 import java.time.Year;
 public class Dollar extends Coin {
-    public Dollar(int year) {
+    public Dollar() {
         super( 
             "Dollar",
             1.00, 
-            "IN GOD WE TRUST", 
-            year,
-            "E PLURIBUS UNUM", 
-            "LIBERTY", 
-            "UNITED STATES OF AMERICA", 
-            "S_Anthony", 
-            "Moon_Eagle", 
-            "ONE DOLLAR", 
-            true, 
             new CuproNickel()
         );
-    }
-    public Dollar() {
-        this(Year.now().getValue());
     }
 
     public int getCount() {
@@ -26,5 +14,26 @@ public class Dollar extends Coin {
 
     public void increment() {
         cc.incrementDollar();
+    }
+
+    protected Coin ridge(Coin c) {
+        c.setRidgedEdge(true);
+        return c;
+    }
+
+    protected Coin imprintFront(Coin c) {
+        c.setFrontImage("S_Anthony");
+        c.setFrontMotto("IN GOD WE TRUST");
+        c.setYear(Year.now().getValue());
+        c.setFrontLabel("LIBERTY");
+        return c;
+    }
+
+    protected Coin imprintBack(Coin c) {
+        c.setBackImage("Moon_Eagle");
+        c.setBackMotto("E PLURIBUS UNUM");
+        c.setValueDescription("ONE DOLLAR");
+        c.setBackLabel("UNITED STATES OF AMERICA");
+        return c;
     }
 }

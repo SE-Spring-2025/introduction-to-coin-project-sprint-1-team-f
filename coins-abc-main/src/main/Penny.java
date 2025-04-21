@@ -1,23 +1,11 @@
 import java.time.Year;
 public class Penny extends Coin {
-    public Penny(int year) {
+    public Penny() {
         super( 
             "Penny",
             0.01,
-            "IN GOD WE TRUST", 
-            year,
-            "E PLURIBUS UNUM", 
-            "LIBERTY", 
-            "UNITED STATES OF AMERICA", 
-            "A_Lincoln", 
-            "Lincoln_Memorial", 
-            "ONE CENT", 
-            false, 
             new Copper()
         );
-    }
-    public Penny() {
-        this(Year.now().getValue());
     }
 
     public int getCount() {
@@ -26,5 +14,26 @@ public class Penny extends Coin {
 
     public void increment() {
         cc.incrementPenny();
+    }
+
+    protected Coin ridge(Coin c) {
+        c.setRidgedEdge(false);
+        return c;
+    }
+
+    protected Coin imprintFront(Coin c) {
+        c.setFrontImage("A_Lincoln");
+        c.setFrontMotto("IN GOD WE TRUST");
+        c.setYear(Year.now().getValue());
+        c.setFrontLabel("LIBERTY");
+        return c;
+    }
+
+    protected Coin imprintBack(Coin c) {
+        c.setBackImage("Lincoln_Memorial");
+        c.setBackMotto("E PLURIBUS UNUM");
+        c.setValueDescription("ONE CENT");
+        c.setBackLabel("UNITED STATES OF AMERICA");
+        return c;
     }
 }

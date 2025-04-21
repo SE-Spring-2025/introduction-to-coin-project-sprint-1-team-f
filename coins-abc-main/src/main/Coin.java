@@ -1,4 +1,4 @@
-public abstract class Coin implements Metallurgy {
+public abstract class Coin {
 
 	private String commonName;
 	private double value;
@@ -13,6 +13,8 @@ public abstract class Coin implements Metallurgy {
 	private boolean ridgedEdge;
 	private Metallurgy smelter;
 	private String metallurgy;
+	private boolean flipped;
+	private boolean buffed;
 	protected static CoinCounter cc = new CoinCounter();
 	public abstract int getCount();
 	public abstract void increment();
@@ -20,31 +22,12 @@ public abstract class Coin implements Metallurgy {
 	public Coin(
 			String commonName, 
 			double value,
-			String frontMotto,
-			int manufactureYear, 
-			String backMotto, 
-			String frontLabel, 
-			String backLabel, 
-			String frontImage, 
-			String backImage, 
-			String valueDescription, 
-			boolean ridgedEdge, 
 			Metallurgy smelter
 		) 
 	{
 		this.value = value;
 		this.commonName = commonName;
-		this.frontMotto = frontMotto;
-		this.manufactureYear = manufactureYear;
-		this.frontImage = frontImage;
-		this.backImage = backImage;
-		this.backMotto = backMotto;
-		this.frontLabel = frontLabel;
-		this.backLabel = backLabel;
-		this.valueDescription = valueDescription;
-		this.ridgedEdge = ridgedEdge;
 		this.smelter = smelter;
-		this.smelt();
 	}
 
 	public String toString() {
@@ -65,14 +48,30 @@ public abstract class Coin implements Metallurgy {
 				+ "']";
 	}
 
-	public String smelt() {
-		if (value == 0.01) {
-			smelter = new Copper();
-		} else {
-			smelter = new CuproNickel();
-		}
-		metallurgy = smelter.smelt();
-		return metallurgy;
+	//MANUFACTURE PROCESS
+	public Coin manufacture(Coin c) {
+		return smelt(ridge(imprintFront(flip(imprintBack(buff(c))))));
+	}
+
+	protected Coin smelt(Coin c) {
+		c.metallurgy = c.smelter.smelt();
+		return c;
+	}
+
+	protected abstract Coin ridge(Coin c);
+
+	protected abstract Coin imprintFront(Coin c);
+
+	protected Coin flip(Coin c) {
+		c.setFlipped(true);
+		return c;
+	}
+
+	protected abstract Coin imprintBack(Coin c);
+
+	protected Coin buff(Coin c) {
+		c.setBuffed(true);
+		return c;
 	}
 	
 	// GETTERS
@@ -124,6 +123,14 @@ public abstract class Coin implements Metallurgy {
 		return manufactureYear;
 	}
 
+	public boolean getFlipped() {
+		return flipped;
+	}
+
+	public boolean getBuffed() {
+		return buffed;
+	}
+
 	//SETTERS
 	public void setCommonName (String commonName) {
 		this.commonName = commonName;
@@ -171,7 +178,14 @@ public abstract class Coin implements Metallurgy {
 
 	public void setSmelter (Metallurgy smelter) {
 		this.smelter = smelter;
-		this.smelt();
+	}
+
+	public void setFlipped (boolean flipped) {
+		this.flipped = flipped;
+	}
+
+	public void setBuffed (boolean buffed) {
+		this.buffed = buffed;
 	}
 	
 }

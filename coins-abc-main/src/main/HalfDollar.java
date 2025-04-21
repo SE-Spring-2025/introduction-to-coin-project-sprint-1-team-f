@@ -1,23 +1,11 @@
 import java.time.Year;
 public class HalfDollar extends Coin {
-    public HalfDollar(int year) {
+    public HalfDollar() {
         super( 
             "HalfDollar",
-            0.50, 
-            "IN GOD WE TRUST", 
-            year,
-            "E PLURIBUS UNUM", 
-            "LIBERTY", 
-            "UNITED STATES OF AMERICA", 
-            "J_Kennedy", 
-            "Presidential_Seal", 
-            "HALF DOLLAR", 
-            true, 
+            0.50,
             new CuproNickel()
         );  
-    }
-    public HalfDollar() {
-        this(Year.now().getValue());
     }
 
     public int getCount() {
@@ -26,5 +14,26 @@ public class HalfDollar extends Coin {
 
     public void increment() {
         cc.incrementHalfDollar();
+    }
+
+    protected Coin ridge(Coin c) {
+        c.setRidgedEdge(true);
+        return c;
+    }
+
+    protected Coin imprintFront(Coin c) {
+        c.setFrontImage("J_Kennedy");
+        c.setFrontMotto("IN GOD WE TRUST");
+        c.setYear(Year.now().getValue());
+        c.setFrontLabel("LIBERTY");
+        return c;
+    }
+
+    protected Coin imprintBack(Coin c) {
+        c.setBackImage("Presidential_Seal");
+        c.setBackMotto("E PLURIBUS UNUM");
+        c.setValueDescription("HALF DOLLAR");
+        c.setBackLabel("UNITED STATES OF AMERICA");
+        return c;
     }
 }
