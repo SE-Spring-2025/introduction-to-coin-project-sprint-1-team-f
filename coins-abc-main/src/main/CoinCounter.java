@@ -97,7 +97,7 @@ public class CoinCounter implements CoinSubject {
     }
 
     public void removeObserver(CoinObserver co) {
-        if (!observers.contains(co))
+        while (observers.contains(co))
         observers.remove(co);
     }
 

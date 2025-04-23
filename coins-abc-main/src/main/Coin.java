@@ -50,7 +50,7 @@ public abstract class Coin {
 
 	//MANUFACTURE PROCESS
 	public Coin manufacture(Coin c) {
-		return smelt(ridge(imprintFront(flip(imprintBack(buff(c))))));
+		return c.smelt(c.ridge(c.imprintFront(c.flip(c.imprintBack(c.buff(c))))));
 	}
 
 	protected Coin smelt(Coin c) {

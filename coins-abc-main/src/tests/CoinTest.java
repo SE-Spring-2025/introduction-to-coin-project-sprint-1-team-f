@@ -1,4 +1,5 @@
 import java.time.Year;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class CoinTest {
+public class CoinTest extends ClassTest{
     private static int currYear;
     
     @BeforeAll
@@ -19,7 +20,13 @@ public class CoinTest {
 		Coin c;
 		//Coin
 		try {
-			c = new MockCoin(null, -1.0, new Copper());
+			c = new Coin(null, -1.0, null) {
+				public int getCount() { return 0; }
+				public void increment() {}
+				protected Coin ridge(Coin c) { return this; }
+				protected Coin imprintFront(Coin c) { return this; }
+				protected Coin imprintBack(Coin c) { return this; }
+			};
 		}
 		catch (Exception e) {
 			fail("Coin() constructor caused exception: "+e.getMessage());
@@ -72,21 +79,23 @@ public class CoinTest {
 		catch (Exception e) {
 			fail("Dollar() constructor caused exception: "+e.getMessage());
 		}
-		assertTrue(true);
     }
 
     @Test
     public void testGetters() {
-	if (! testPenny()) fail("penny getters failed");
-	if (! testNickel()) fail("nickel getters failed");
-	if (! testDime()) fail("dime getters failed");
-	if (! testQuarter()) fail("quarter getters failed");
-	if (! testHalfDollar()) fail("half dollar getters failed");
-	if (! testDollar()) fail("dollar getters failed");
-	
-	// make it here then didn't fail!
-	assertTrue(true);
+		assertTrue(testPennyGetters());
+		assertTrue(testNickelGetters());
+		assertTrue(testDimeGetters());
+		assertTrue(testQuarterGetters());
+		assertTrue(testHalfDollarGetters());
+		assertTrue(testDollarGetters());
     }
+
+	@Test
+	public void testSetters() {
+		assertTrue(testCoinSetters());
+		assertTrue(testConcreteSetters());
+	}
 
     @Test
     public void testToString() {
@@ -169,6 +178,7 @@ public class CoinTest {
 
 	@Test
 	public void testManufacture() {
+
 		//Checking Penny
 		Coin c = new Penny();
 		c = c.manufacture(c);
@@ -206,34 +216,10 @@ public class CoinTest {
     // private helper methods
     //---------------------------------------------------------
 
-	class MockCoin extends Coin {
-		public MockCoin(String commonValue, double value, Metallurgy smelter) {
-			super(commonValue, value, smelter);
-		}
-
-		public int getCount() {
-			return -1;
-		}
-		
-		public void increment() {}
-
-		protected Coin ridge(Coin c) {
-			return c;
-		}
-
-		protected Coin imprintFront(Coin c) {
-			return c;
-		}
-
-		protected Coin imprintBack(Coin c) {
-			return c;
-		}
-	}
-
     private boolean cmpDoubles(double a, double b) {
 	return Math.abs(a-b) < 0.00001;
     }
-    private boolean testPenny() {
+    private boolean testPennyGetters() {
 	Coin c = new Penny();
 	c = c.manufacture(c);
 	
@@ -249,11 +235,13 @@ public class CoinTest {
 	if (c.getRidgedEdge() != false) return false;
 	if (! "Copper".equals(c.getMetallurgy())) return false;
 	if (currYear != c.getYear()) return false;
+	if (c.getBuffed() != true) return false;
+	if (c.getFlipped() != true) return false;
 	    
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testNickel() {
+    private boolean testNickelGetters() {
 	Coin c = new Nickel();
 	c = c.manufacture(c);
 	
@@ -269,11 +257,13 @@ public class CoinTest {
 	if (c.getRidgedEdge() != false) return false;
 	if (! "Cupro-Nickel".equals(c.getMetallurgy())) return false;
 	if (currYear != c.getYear()) return false;
+	if (c.getBuffed() != true) return false;
+	if (c.getFlipped() != true) return false;
 	
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testDime() {
+    private boolean testDimeGetters() {
 	Coin c = new Dime();
 	c = c.manufacture(c);
 	
@@ -289,11 +279,13 @@ public class CoinTest {
 	if (c.getRidgedEdge() != true) return false;
 	if (! "Cupro-Nickel".equals(c.getMetallurgy())) return false;
 	if (currYear != c.getYear()) return false;
+	if (c.getBuffed() != true) return false;
+	if (c.getFlipped() != true) return false;
 	
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testQuarter() {
+    private boolean testQuarterGetters() {
 	Coin c = new Quarter();
 	c = c.manufacture(c);
 	
@@ -309,11 +301,13 @@ public class CoinTest {
 	if (c.getRidgedEdge() != true) return false;
 	if (! "Cupro-Nickel".equals(c.getMetallurgy())) return false;
 	if (currYear != c.getYear()) return false;
+	if (c.getBuffed() != true) return false;
+	if (c.getFlipped() != true) return false;
 	
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testHalfDollar() {
+    private boolean testHalfDollarGetters() {
 	Coin c = new HalfDollar();
 	c = c.manufacture(c);
 	
@@ -329,11 +323,13 @@ public class CoinTest {
 	if (c.getRidgedEdge() != true) return false;
 	if (! "Cupro-Nickel".equals(c.getMetallurgy())) return false;
 	if (currYear != c.getYear()) return false;
+	if (c.getBuffed() != true) return false;
+	if (c.getFlipped() != true) return false;
 	
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testDollar() {
+    private boolean testDollarGetters() {
 	Coin c = new Dollar();
 	c = c.manufacture(c);
 	
@@ -349,9 +345,97 @@ public class CoinTest {
 	if (c.getRidgedEdge() != true) return false;
 	if (! "Cupro-Nickel".equals(c.getMetallurgy())) return false;
 	if (currYear != c.getYear()) return false;
+	if (c.getBuffed() != true) return false;
+	if (c.getFlipped() != true) return false;
 	
 	// make it here then didn't fail!
 	return true;
     }
+	private boolean testCoinSetters() {
+		final String s = "test";
+		final double d = -1;
+		final int i = -1;
+
+							Coin c = new Coin(null, 0, null) {
+								public int getCount() { return 0; }
+								public void increment() {}
+								protected Coin ridge(Coin c) { return this; }
+								protected Coin imprintFront(Coin c) { return this; }
+								protected Coin imprintBack(Coin c) { return this; }
+							};
+		c.setCommonName(s);
+		c.setValue(d);
+		c.setFrontMotto(s);
+		c.setYear(i);
+		c.setFrontImage(s);
+		c.setBackImage(s);
+		c.setBackMotto(s);
+		c.setFrontLabel(s);
+		c.setBackLabel(s);
+		c.setValueDescription(s);
+		c.setRidgedEdge(true);
+		c.setFlipped(true);
+		c.setBuffed(true);
+
+		if (!s.equals(c.getCommonName())) { return false; }
+		if (d != c.getValue()) { return false; }
+		if (!s.equals(c.getFrontMotto())) { return false; }
+		if (i != c.getYear()) { return false; }
+		if (!s.equals(c.getFrontImage())) { return false; }
+		if (!s.equals(c.getBackImage())) { return false; }
+		if (!s.equals(c.getBackMotto())) { return false; }
+		if (!s.equals(c.getFrontLabel())) { return false; }
+		if (!s.equals(c.getBackLabel())) { return false; }
+		if (!s.equals(c.getValueDescription())) { return false; }
+		if (!c.getRidgedEdge()) { return false; }
+		if (!c.getFlipped()) { return false; }
+		if (!c.getBuffed()) { return false; }
+
+		return true;
+	}
+	private boolean testConcreteSetters() {
+		final String s = "test";
+		final double d = -1;
+		final int i = -1;
+		ArrayList<Coin> a = new ArrayList<Coin>();
+			a.add(new Penny());
+			a.add(new Nickel());
+			a.add(new Dime());
+			a.add(new Quarter());
+			a.add(new HalfDollar());
+			a.add(new Dollar());
+
+		for (Coin c : a) {
+			c.setCommonName(s);
+			c.setValue(d);
+			c.setFrontMotto(s);
+			c.setYear(i);
+			c.setFrontImage(s);
+			c.setBackImage(s);
+			c.setBackMotto(s);
+			c.setFrontLabel(s);
+			c.setBackLabel(s);
+			c.setValueDescription(s);
+			c.setRidgedEdge(true);
+			c.setFlipped(true);
+			c.setBuffed(true);
+
+			if (!s.equals(c.getCommonName())) { return false; }
+			if (d != c.getValue()) { return false; }
+			if (!s.equals(c.getFrontMotto())) { return false; }
+			if (i != c.getYear()) { return false; }
+			if (!s.equals(c.getFrontImage())) { return false; }
+			if (!s.equals(c.getBackImage())) { return false; }
+			if (!s.equals(c.getBackMotto())) { return false; }
+			if (!s.equals(c.getFrontLabel())) { return false; }
+			if (!s.equals(c.getBackLabel())) { return false; }
+			if (!s.equals(c.getValueDescription())) { return false; }
+			if (!c.getRidgedEdge()) { return false; }
+			if (!c.getFlipped()) { return false; }
+			if (!c.getBuffed()) { return false; }
+		}
+
+		return true;
+	}
+	
 }
-    
