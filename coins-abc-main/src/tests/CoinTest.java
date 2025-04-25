@@ -16,85 +16,119 @@ public class CoinTest {
 
     @Test
     public void testConstructors() {
-	// Basically just make sure they don't blow up
-	// parameterless constructor
-	try {
-	    Coin c = new MockCoin();
-	}
-	catch (Exception e) {
-	    fail("Coin() constructor caused exception: "+e.getMessage());
-	}
-
-	// value arg constructor
-	try {
-	    Coin c = new MockCoin(0.05);
-	}
-	catch (Exception e) {
-	    fail("Coin() constructor caused exception: "+e.getMessage());
-	}
-
-	// value and year args constructor
-	try {
-	    Coin c = new MockCoin(0.10, 2020);
-	}
-	catch (Exception e) {
-	    fail("Coin() constructor caused exception: "+e.getMessage());
-	}
-
-	// make it here then didn't fail!
-	assertTrue(true);
+		// Basically just make sure they don't blow up
+		// parameterless constructor
+		try {
+			Coin testMock = new MockCoin();
+		}
+		catch (Exception e) {
+			fail("Coin() constructor caused exception: " + e.getMessage());
+		}
     }
 
     @Test
     public void testGetters() {
-	if (! testPenny()) fail("penny getters failed");
-	if (! testNickel()) fail("nickel getters failed");
-	if (! testDime()) fail("dime getters failed");
-	if (! testQuarter()) fail("quarter getters failed");
-	if (! testHalfDollar()) fail("half dollar getters failed");
-	if (! testDollar()) fail("dollar getters failed");
-	
-	// make it here then didn't fail!
-	assertTrue(true);
+		assertTrue(testPennyGetters());
+		assertTrue(testNickelGetters());
+		assertTrue(testDimeGetters());
+		assertTrue(testQuarterGetters());
+		assertTrue(testHalfDollarGetters());
+		assertTrue(testDollarGetters());
     }
 
     @Test
     public void testToString() {
-	Coin c = new HalfDollar();
-	String expectedOutput =
-	    "[HalfDollar,0.50,"
-		+ currYear
-		+ ",'IN GOD WE TRUST','E PLURIBUS UNUM'"
-	    + ",'J_Kennedy','Presidential_Seal','LIBERTY'"
-	    + ",'UNITED STATES OF AMERICA','HALF DOLLAR',ridges"
-	    + ",'Cupro-Nickel']";
-	assertEquals(expectedOutput, c.toString());
+
+		Coin c;
+		String expectedOutput;
+
+		//Checking Penny
+		c = new Penny();
+		expectedOutput =
+			"[Penny,0.01,"
+			+ currYear
+			+ ",'IN GOD WE TRUST','E PLURIBUS UNUM'"
+			+ ",'A_Lincoln','Lincoln_Memorial','LIBERTY'"
+			+ ",'UNITED STATES OF AMERICA','ONE CENT',smooth"
+			+ ",'Copper']";
+		assertEquals(expectedOutput, c.toString());
+
+		//Checking Nickel
+		c = new Nickel();
+		expectedOutput =
+			"[Nickel,0.05,"
+			+ currYear
+			+ ",'IN GOD WE TRUST','E PLURIBUS UNUM'"
+			+ ",'T_Jefferson','Jefferson_Memorial','LIBERTY'"
+			+ ",'UNITED STATES OF AMERICA','FIVE CENTS',smooth"
+			+ ",'Cupro-Nickel']";
+		assertEquals(expectedOutput, c.toString());
+
+		//Checking Dime
+		c = new Dime();
+		expectedOutput =
+			"[Dime,0.10,"
+			+ currYear
+			+ ",'IN GOD WE TRUST','E PLURIBUS UNUM'"
+			+ ",'F_Roosevelt','Torch_Branches','LIBERTY'"
+			+ ",'UNITED STATES OF AMERICA','ONE DIME',ridges"
+			+ ",'Cupro-Nickel']";
+		assertEquals(expectedOutput, c.toString());
+
+		//Checking Quarter
+		c = new Quarter();
+		expectedOutput =
+			"[Quarter,0.25,"
+			+ currYear
+			+ ",'IN GOD WE TRUST','E PLURIBUS UNUM'"
+			+ ",'G_Washington','Eagle','LIBERTY'"
+			+ ",'UNITED STATES OF AMERICA','QUARTER DOLLAR',ridges"
+			+ ",'Cupro-Nickel']";
+		assertEquals(expectedOutput, c.toString());
+
+		//Checking Half Dollar
+		c = new HalfDollar();
+		expectedOutput =
+			"[HalfDollar,0.50,"
+			+ currYear
+			+ ",'IN GOD WE TRUST','E PLURIBUS UNUM'"
+			+ ",'J_Kennedy','Presidential_Seal','LIBERTY'"
+			+ ",'UNITED STATES OF AMERICA','HALF DOLLAR',ridges"
+			+ ",'Cupro-Nickel']";
+		assertEquals(expectedOutput, c.toString());
+
+		//Checking Dollar
+		c = new Dollar();
+		expectedOutput =
+			"[Dollar,1.00,"
+			+ currYear
+			+ ",'IN GOD WE TRUST','E PLURIBUS UNUM'"
+			+ ",'S_Anthony','Moon_Eagle','LIBERTY'"
+			+ ",'UNITED STATES OF AMERICA','ONE DOLLAR',ridges"
+			+ ",'Cupro-Nickel']";
+		assertEquals(expectedOutput, c.toString());
     }
 
     //---------------------------------------------------------
     // private helper methods
     //---------------------------------------------------------
     
-	class MockCoin extends Coin {
-		public MockCoin(double value, int year) {
-		   super(value, year);
-		}
-		public MockCoin(double value) {
-			super(value);
-		}
+	private class MockCoin extends Coin {
 		public MockCoin() {
-			super();
+			super("Mock", 0.24, "frontMotto", 1788, "frontImage", "backImage",
+			"backMotto", "frontLabel", "backLabel", "twenty-four cents", false,
+			"metallurgy");
 		}
 	 }
 
     private boolean cmpDoubles(double a, double b) {
 	return Math.abs(a-b) < 0.00001;
     }
-    private boolean testPenny() {
+    private boolean testPennyGetters() {
 	Coin c = new Penny();
 	
 	if (! "Penny".equals(c.getFamiliarName())) return false;
-	if (! cmpDoubles(c.getValue(), Coin.PENNY_VALUE)) return false;
+	if (! cmpDoubles(c.getValue(), 0.01)) return false;
 	if (! "IN GOD WE TRUST".equals(c.getFrontMotto())) return false;
 	if (! "E PLURIBUS UNUM".equals(c.getBackMotto())) return false;
 	if (! "LIBERTY".equals(c.getFrontLabel())) return false;
@@ -109,11 +143,11 @@ public class CoinTest {
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testNickel() {
+    private boolean testNickelGetters() {
 	Coin c = new Nickel();
 	
 	if (! "Nickel".equals(c.getFamiliarName())) return false;
-	if (! cmpDoubles(c.getValue(), Coin.NICKEL_VALUE)) return false;
+	if (! cmpDoubles(c.getValue(), 0.05)) return false;
 	if (! "IN GOD WE TRUST".equals(c.getFrontMotto())) return false;
 	if (! "E PLURIBUS UNUM".equals(c.getBackMotto())) return false;
 	if (! "LIBERTY".equals(c.getFrontLabel())) return false;
@@ -128,11 +162,11 @@ public class CoinTest {
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testDime() {
+    private boolean testDimeGetters() {
 	Coin c = new Dime();
 	
 	if (! "Dime".equals(c.getFamiliarName())) return false;
-	if (! cmpDoubles(c.getValue(), Coin.DIME_VALUE)) return false;
+	if (! cmpDoubles(c.getValue(), 0.10)) return false;
 	if (! "IN GOD WE TRUST".equals(c.getFrontMotto())) return false;
 	if (! "E PLURIBUS UNUM".equals(c.getBackMotto())) return false;
 	if (! "LIBERTY".equals(c.getFrontLabel())) return false;
@@ -147,11 +181,11 @@ public class CoinTest {
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testQuarter() {
+    private boolean testQuarterGetters() {
 	Coin c = new Quarter();
 	
 	if (! "Quarter".equals(c.getFamiliarName())) return false;
-	if (! cmpDoubles(c.getValue(), Coin.QUARTER_VALUE)) return false;
+	if (! cmpDoubles(c.getValue(), 0.25)) return false;
 	if (! "IN GOD WE TRUST".equals(c.getFrontMotto())) return false;
 	if (! "E PLURIBUS UNUM".equals(c.getBackMotto())) return false;
 	if (! "LIBERTY".equals(c.getFrontLabel())) return false;
@@ -166,11 +200,11 @@ public class CoinTest {
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testHalfDollar() {
+    private boolean testHalfDollarGetters() {
 	Coin c = new HalfDollar();
 	
 	if (! "HalfDollar".equals(c.getFamiliarName())) return false;
-	if (! cmpDoubles(c.getValue(), Coin.HALFDOLLAR_VALUE)) return false;
+	if (! cmpDoubles(c.getValue(), 0.50)) return false;
 	if (! "IN GOD WE TRUST".equals(c.getFrontMotto())) return false;
 	if (! "E PLURIBUS UNUM".equals(c.getBackMotto())) return false;
 	if (! "LIBERTY".equals(c.getFrontLabel())) return false;
@@ -185,11 +219,11 @@ public class CoinTest {
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testDollar() {
+    private boolean testDollarGetters() {
 	Coin c = new Dollar();
 	
 	if (! "Dollar".equals(c.getFamiliarName())) return false;
-	if (! cmpDoubles(c.getValue(), Coin.DOLLAR_VALUE)) return false;
+	if (! cmpDoubles(c.getValue(), 1.00)) return false;
 	if (! "IN GOD WE TRUST".equals(c.getFrontMotto())) return false;
 	if (! "E PLURIBUS UNUM".equals(c.getBackMotto())) return false;
 	if (! "LIBERTY".equals(c.getFrontLabel())) return false;

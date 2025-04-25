@@ -72,32 +72,32 @@ public class Demo {
 	        case 'G':
 			case 'g':
 		    System.out.println("Gonna make a dollar coin...");
-		    c = new Dollar();
+			System.out.println(c = new Dollar());
 		    break;
 	        case 'H':
 			case 'h':
 		    System.out.println("Gonna make a half dollar coin...");
-		    c = new HalfDollar();
+		    System.out.println(c = new HalfDollar());
 		    break;
 	        case 'Q':
 			case 'q':
 		    System.out.println("Gonna make a quarter coin...");
-		    c = new Quarter();
+		    System.out.println(c = new Quarter());
 		    break;
 	        case 'D':
 			case 'd':
 		    System.out.println("Gonna make a dime coin...");
-		    c = new Dime();
+		    System.out.println(c = new Dime());
 		    break;
 	        case 'N':
 			case 'n':
-		    c = new Nickel();
+		    System.out.println(c = new Nickel());
 		    System.out.println("Gonna make a nickel coin...");
 		    break;
 	        case 'P':
 			case 'p':
 		    System.out.println("Gonna make a penny coin...");
-		    c = new Penny();
+		    System.out.println(c = new Penny());
 		    break;
 	        case 'X':
 			case 'x':
