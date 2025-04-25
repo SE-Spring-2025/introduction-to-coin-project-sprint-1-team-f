@@ -62,11 +62,7 @@ public abstract class Coin implements Metallurgy {
 	}
 
 	public String smelt() {
-		if (value == 0.01) {
-			smelter = new Copper();
-		} else {
-			smelter = new CuproNickel();
-		}
+		
 		metallurgy = smelter.smelt();
 		return metallurgy;
 	}
