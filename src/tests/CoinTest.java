@@ -113,12 +113,12 @@ public class CoinTest {
 
     @Test
     public void testGetters() {
-	if (! testPenny()) fail("penny getters failed");
-	if (! testNickel()) fail("nickel getters failed");
-	if (! testDime()) fail("dime getters failed");
-	if (! testQuarter()) fail("quarter getters failed");
-	if (! testHalfDollar()) fail("half dollar getters failed");
-	if (! testDollar()) fail("dollar getters failed");
+		assertTrue(testPennyGetters());
+		assertTrue(testNickelGetters());
+		assertTrue(testDimeGetters());
+		assertTrue(testQuarterGetters());
+		assertTrue(testHalfDollarGetters());
+		assertTrue(testDollarGetters());
 	
 	// make it here then didn't fail!
 	assertTrue(true);
@@ -264,7 +264,7 @@ public class CoinTest {
     private boolean cmpDoubles(double a, double b) {
 	return Math.abs(a-b) < 0.00001;
     }
-    private boolean testPenny() {
+    private boolean testPennyGetters() {
 	Coin c = new Penny();
 	
 	if (! "Penny".equals(c.getCommonName())) return false;
@@ -283,7 +283,7 @@ public class CoinTest {
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testNickel() {
+    private boolean testNickelGetters() {
 	Coin c = new Nickel();
 	
 	if (! "Nickel".equals(c.getCommonName())) return false;
@@ -302,7 +302,7 @@ public class CoinTest {
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testDime() {
+    private boolean testDimeGetters() {
 	Coin c = new Dime();
 	
 	if (! "Dime".equals(c.getCommonName())) return false;
@@ -321,7 +321,7 @@ public class CoinTest {
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testQuarter() {
+    private boolean testQuarterGetters() {
 	Coin c = new Quarter();
 	
 	if (! "Quarter".equals(c.getCommonName())) return false;
@@ -340,7 +340,7 @@ public class CoinTest {
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testHalfDollar() {
+    private boolean testHalfDollarGetters() {
 	Coin c = new HalfDollar();
 	
 	if (! "HalfDollar".equals(c.getCommonName())) return false;
@@ -359,7 +359,7 @@ public class CoinTest {
 	// make it here then didn't fail!
 	return true;
     }
-    private boolean testDollar() {
+    private boolean testDollarGetters() {
 	Coin c = new Dollar();
 	
 	if (! "Dollar".equals(c.getCommonName())) return false;
