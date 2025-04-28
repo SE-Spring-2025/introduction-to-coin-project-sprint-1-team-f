@@ -16,13 +16,86 @@ public class CoinTest {
 
     @Test
     public void testConstructors() {
+		Coin testMock;
 		// Basically just make sure they don't blow up
 		// parameterless constructor
 		try {
-			Coin testMock = new MockCoin();
+			testMock = new MockCoin();
 		}
 		catch (Exception e) {
 			fail("Coin() constructor caused exception: " + e.getMessage());
+		}
+		try {
+			testMock = new Penny();
+		}
+		catch (Exception e) {
+			fail("Penny() constructor caused exception: " + e.getMessage());
+		}
+		try {
+			testMock = new Nickel();
+		}
+		catch (Exception e) {
+			fail("Nickel() constructor caused exception: " + e.getMessage());
+		}
+		try {
+			testMock = new Dime();
+		}
+		catch (Exception e) {
+			fail("Dime() constructor caused exception: " + e.getMessage());
+		}
+		try {
+			testMock = new Quarter();
+		}
+		catch (Exception e) {
+			fail("Quarter() constructor caused exception: " + e.getMessage());
+		}
+		try {
+			testMock = new HalfDollar();
+		}
+		catch (Exception e) {
+			fail("HalfDollar() constructor caused exception: " + e.getMessage());
+		}
+		try {
+			testMock = new Dollar();
+		}
+		catch (Exception e) {
+			fail("Dollar() constructor caused exception: " + e.getMessage());
+		}
+		try {
+			testMock = new Penny(currYear);
+		}
+		catch (Exception e) {
+			fail("Penny(int year) constructor caused exception: " + e.getMessage());
+		}
+		try {
+			testMock = new Nickel(currYear);
+		}
+		catch (Exception e) {
+			fail("Nickel(int year) constructor caused exception: " + e.getMessage());
+		}
+		try {
+			testMock = new Dime(currYear);
+		}
+		catch (Exception e) {
+			fail("Dime(int year) constructor caused exception: " + e.getMessage());
+		}
+		try {
+			testMock = new Quarter(currYear);
+		}
+		catch (Exception e) {
+			fail("Quarter(int year) constructor caused exception: " + e.getMessage());
+		}
+		try {
+			testMock = new HalfDollar(currYear);
+		}
+		catch (Exception e) {
+			fail("HalfDollar(int year) constructor caused exception: " + e.getMessage());
+		}
+		try {
+			testMock = new Dollar(currYear);
+		}
+		catch (Exception e) {
+			fail("Dollar(int year) constructor caused exception: " + e.getMessage());
 		}
     }
 
